@@ -1,3 +1,5 @@
+package main
+
 // Time:  O(n)
 // Space: O(1)
 
@@ -8,6 +10,11 @@
  *     Next *ListNode
  * }
  */
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
+
 func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	dummy := &ListNode{}
 	current, carry := dummy, 0
