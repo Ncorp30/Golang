@@ -9,25 +9,16 @@ package leetcode
 // Note that the answer must be a substring, "pwke" is a subsequence and not a substring.
 //
 func lengthOfLongestSubstring(s string) int {
-	hashmap := map[byte]int{}
+	hashmap := map[rune]int{}
 	max := 0
-	for i := range s {
-		_, ok := hashmap[s[i]]
-		if !ok {
-			hashmap[s[i]] = i
-			if len(hashmap) > max {
-				max = len(hashmap)
-			}
-		} else {
-			// remove repeated
-			oldI := hashmap[s[i]]
-			hashmap[s[i]] = i
-
-			for key, value := range hashmap {
-				if value < oldI {
-					delete(hashmap, key)
-				}
-			}
+	left := 0
+	for right, r := range s {
+		if prev, ok := hashmap[r]; ok && prev >= left {
+			left = prev + 1
+		}
+		hashmap[r] = right
+		if right-left+1 > max {
+			max = right - left + 1
 		}
 	}
 	return max
